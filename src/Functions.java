@@ -20,7 +20,7 @@ public class Functions
    public static ArrayList<ObjectData> getObjectsFromFile(String fileName) throws FileNotFoundException
    {
       ArrayList<ObjectData> resultArray = new ArrayList<>();
-      ArrayList<String> collumnName = new ArrayList<>();                   //If needed can be shared as global variable
+      ArrayList<String> columnName = new ArrayList<>();                   //If needed can be shared as global variable
       
       File file = new File(fileName);
       Scanner scanner = new Scanner(file);
@@ -37,7 +37,7 @@ public class Functions
          {
             for(String s : splitted)
             {
-               collumnName.add(s.replaceAll("\"", ""));
+               columnName.add(s.replaceAll("\"", ""));
             }
             
             isInitialLine = false;
@@ -46,7 +46,7 @@ public class Functions
          {
             ArrayList<Double> dataForObject = new ArrayList<>();
             
-            for(int i = 1 ; i <= collumnName.size() - 2 ; i++)
+            for(int i = 1 ; i <= columnName.size() - 2 ; i++)
             {
                double tempDouble = Double.parseDouble(splitted[i]);
                
@@ -54,7 +54,7 @@ public class Functions
             }
             
             String tempID = splitted[0].replaceAll("\"", "");
-            String tempName = splitted[collumnName.size() - 1].replaceAll("\"", "");
+            String tempName = splitted[columnName.size() - 1].replaceAll("\"", "");
             
             resultArray.add(new ObjectData(Integer.parseInt(tempID), dataForObject, tempName));
          }
@@ -222,9 +222,54 @@ public class Functions
    
    public static void giveResults(ArrayList<ObjectData> objectsArray, int k)
    {
-      for(ObjectData object : objectsArray)
+      for(int i = 1 ; i <= k ; i++)
       {
+         HashMap<String, Integer> repeats = new HashMap<>();
+         int counter = 0;
          
+         for(ObjectData object : objectsArray)
+         {
+            if(object.getGroupID() == i)
+            {
+               counter++;
+               
+               if(repeats.containsKey(object.getObjectName()))
+               {
+                  int prevVal = repeats.get(object.getObjectName());
+                  repeats.replace(object.getObjectName(), prevVal, ++prevVal);
+               }
+               else
+               {
+                  repeats.put(object.getObjectName(), 1);
+               }
+            }
+         }
+         
+         String res;
+         int amount;
+         double perc;
+         
+         if(repeats.isEmpty())
+         {
+            res = "Brak grupy";
+            amount = 0;
+            perc = 0;
+         }
+         else
+         {
+            res = repeats
+                    .entrySet()
+                    .stream()
+                    .max(Map.Entry.comparingByValue())
+                    .get()
+                    .getKey();
+            
+            amount = repeats.get(res);
+            perc = (double) amount / counter * 100;
+         }
+         
+         
+         System.out.println(res + " has " + amount + " correct guesses - " + perc + "%");
       }
    }
    

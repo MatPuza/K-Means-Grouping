@@ -35,7 +35,7 @@ public class NAI_5
          centroids = Functions.moveCentroids(allObjects, k);
       }
       
-      
+      Functions.giveResults(allObjects, k);
    }
    
 }
