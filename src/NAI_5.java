@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class NAI_5
 {
-   private static final String trainSet = "iris_all.csv";
+   private static final String dataSet = "iris_all.csv";
    private static final String testSet = "dane_testowe.csv";
    
    private static int k;
@@ -21,7 +21,8 @@ public class NAI_5
       
       k = Functions.getUserInput();
       
-      allObjects = Functions.getObjectsFromFile(trainSet);
+      allObjects = Functions.getObjectsFromFile(dataSet);
+      Functions.assignToRandomGroup(allObjects, k);
       
       
    }

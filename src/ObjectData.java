@@ -19,6 +19,11 @@ public class ObjectData
       this.objectName = objectName;
    }
    
+   public void setGroupID(int groupID)
+   {
+      this.groupID = groupID;
+   }
+   
    public int getGroupID()
    {
       return groupID;

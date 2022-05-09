@@ -6,6 +6,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Functions
@@ -62,6 +63,18 @@ public class Functions
       
       return resultArray;
    }
+   
+   public static void assignToRandomGroup(ArrayList<ObjectData> objectsArray, int k)
+   {
+      Random random = new Random();
+      
+      for(ObjectData object : objectsArray)
+      {
+         object.setGroupID(random.ints(1, k + 1).findFirst().getAsInt());
+      }
+   }
+   
+   
    
 }
 
