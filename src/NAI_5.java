@@ -34,6 +34,8 @@ public class NAI_5
          isChangingValues = Functions.changeObjectsClassification(centroids, allObjects, k);
          centroids = Functions.moveCentroids(allObjects, k);
       }
+      
+      
    }
    
 }

@@ -5,10 +5,8 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.IntStream;
 
 public class Functions
 {
@@ -69,9 +67,25 @@ public class Functions
    {
       Random random = new Random();
       
-      for(ObjectData object : objectsArray)
+      boolean noEmptyGroups = true;
+      
+      while(noEmptyGroups)
       {
-         object.setGroupID(random.ints(1, k + 1).findFirst().getAsInt());
+         int[] repeats = new int[k];
+         
+         for(int i = 0 ; i < k ; i++)
+         {
+            repeats[i] = 0;
+         }
+         
+         for(ObjectData object : objectsArray)
+         {
+            object.setGroupID(random.ints(1, k + 1).findFirst().getAsInt());
+            
+            repeats[object.getGroupID() - 1]++;
+         }
+         
+         noEmptyGroups = IntStream.of(repeats).anyMatch(n -> n == 0);
       }
    }
    
@@ -132,17 +146,14 @@ public class Functions
          }
          
          String tempName = "Centroid" + i;
-         resultCentroids.add(new ObjectData(i, coordinates, tempName));
+         
+         ObjectData newObj = new ObjectData(i, coordinates, tempName);
+         newObj.setGroupID(i);
+         
+         resultCentroids.add(newObj);
       }
       
       return resultCentroids;
-   }
-   
-   //Returns map of list of distances for each object to the Kth centroid
-   public static Map<Integer, ArrayList<Double>> getDistances(ArrayList<ObjectData> objectsArray, int k)
-   {
-//      Map<Integer, ArrayList<Double>> resultMap = new Map
-      return null;
    }
    
    public static boolean changeObjectsClassification(ArrayList<ObjectData> centroids, ArrayList<ObjectData> objectsArray, int k)
@@ -182,8 +193,8 @@ public class Functions
             }
          }
          
-         double currentVal = sumOfDistances.get(currentCentroid.getGroupID());
-         sumOfDistances.set(currentCentroid.getGroupID(), currentVal + shortestDistance);
+         double currentVal = sumOfDistances.get(currentCentroid.getGroupID() - 1);
+         sumOfDistances.set((currentCentroid.getGroupID() - 1), currentVal + shortestDistance);
          
          if(object.getGroupID() != currentCentroid.getGroupID())
          {
@@ -194,14 +205,27 @@ public class Functions
       }
       
       int counter = 1;
+      double totalSum = 0;
       
       for(Double dist : sumOfDistances)
       {
          System.out.println("Centroid " + counter + " = " + dist);
+         totalSum += dist;
          counter++;
       }
       
+      System.out.println("Total sum = " + totalSum);
+      System.out.println();
+      
       return didClassificationChange;
+   }
+   
+   public static void giveResults(ArrayList<ObjectData> objectsArray, int k)
+   {
+      for(ObjectData object : objectsArray)
+      {
+         
+      }
    }
    
 }
