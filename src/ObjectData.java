@@ -10,12 +10,18 @@ public class ObjectData
    private int ID;
    private ArrayList<Double> data;
    private String objectName;
+   private int groupID;
    
    public ObjectData(int ID, ArrayList<Double> list, String objectName)
    {
       this.ID = ID;
       this.data = list;
       this.objectName = objectName;
+   }
+   
+   public int getGroupID()
+   {
+      return groupID;
    }
    
    public ArrayList<Double> getData()
