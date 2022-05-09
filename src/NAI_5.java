@@ -14,6 +14,7 @@ public class NAI_5
    private static int k;
    
    private static ArrayList<ObjectData> allObjects = new ArrayList<>();
+   private static ArrayList<ObjectData> centroids = new ArrayList<>();
    
    public static void main(String[] args) throws FileNotFoundException
    {
@@ -24,7 +25,19 @@ public class NAI_5
       allObjects = Functions.getObjectsFromFile(dataSet);
       Functions.assignToRandomGroup(allObjects, k);
       
+      centroids = Functions.moveCentroids(allObjects, k);
       
+      for(ObjectData centroid : centroids)
+      {
+         System.out.print(centroid.getObjectName() + " ");
+   
+         for(Double data : centroid.getData())
+         {
+            System.out.print(data + ", ");
+         }
+   
+         System.out.println();
+      }
    }
    
 }

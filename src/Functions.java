@@ -74,7 +74,48 @@ public class Functions
       }
    }
    
+   public static ArrayList<ObjectData> moveCentroids(ArrayList<ObjectData> objectsArray, int k)
+   {
+      ArrayList<ObjectData> resultCentroids = new ArrayList<>();
+      
+      //Create k centroids
+      for(int i = 1 ; i <= k ; i++)
+      {
+         int counter = 0;
+         
+         for(ObjectData object : objectsArray)
+         {
+            if(object.getGroupID() == i) counter++;
+         }
+         
+         ArrayList<Double> coordinates = new ArrayList<>();
+         
+         int amountOfCoordinates = objectsArray.get(0).getData().size();
+         
+         for(int j = 0 ; j < amountOfCoordinates ; j++)
+         {
+            double coord = 0;
    
+            for(ObjectData object : objectsArray)
+            {
+               //If object belongs to K group
+               if(object.getGroupID() == i)
+               {
+                  coord += object.getData().get(j);
+               }
+            }
+            
+            coord /= counter;
+            
+            coordinates.add(coord);
+         }
+         
+         String tempName = "Centroid" + i;
+         resultCentroids.add(new ObjectData(i, coordinates, tempName));
+      }
+      
+      return resultCentroids;
+   }
    
 }
 

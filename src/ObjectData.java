@@ -12,10 +12,10 @@ public class ObjectData
    private String objectName;
    private int groupID;
    
-   public ObjectData(int ID, ArrayList<Double> list, String objectName)
+   public ObjectData(int ID, ArrayList<Double> values, String objectName)
    {
       this.ID = ID;
-      this.data = list;
+      this.data = values;
       this.objectName = objectName;
    }
    
