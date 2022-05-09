@@ -3,14 +3,15 @@
  * NAI project 5
  */
 
-public class NAI_5
+public class Functions
 {
-   public static void main(String[] args)
-   {
-      
-   }
    
 }
+
+
+
+
+
 
 
 
