@@ -12,6 +12,8 @@ public class ObjectData
    private String objectName;
    private int groupID;
    
+   public ObjectData() {}
+   
    public ObjectData(int ID, ArrayList<Double> values, String objectName)
    {
       this.ID = ID;

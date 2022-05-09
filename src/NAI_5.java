@@ -27,16 +27,12 @@ public class NAI_5
       
       centroids = Functions.moveCentroids(allObjects, k);
       
-      for(ObjectData centroid : centroids)
+      boolean isChangingValues = true;
+      
+      while(isChangingValues)
       {
-         System.out.print(centroid.getObjectName() + " ");
-   
-         for(Double data : centroid.getData())
-         {
-            System.out.print(data + ", ");
-         }
-   
-         System.out.println();
+         isChangingValues = Functions.changeObjectsClassification(centroids, allObjects, k);
+         centroids = Functions.moveCentroids(allObjects, k);
       }
    }
    
